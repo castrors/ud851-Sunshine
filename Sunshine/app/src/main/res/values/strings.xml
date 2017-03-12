@@ -244,4 +244,15 @@
         Low:<xliff:g id="low">%3$s</xliff:g>
     </string>
 
+
+    <string name="start_wearable_activity">Start Wearable Activity</string>
+    <string name="start">Start</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="send_photo">Send Photo</string>
+    <string name="preference_file_key">preference_weather</string>
+    <string name="high_temp">high_temp</string>
+    <string name="low_temp">low_temp</string>
+    <string name="weather_id">weather_id</string>
+    <string name="weather_id_default">0</string>
+
 </resources>

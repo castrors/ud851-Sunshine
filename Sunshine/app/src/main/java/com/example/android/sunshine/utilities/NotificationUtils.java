@@ -76,8 +76,9 @@ public class NotificationUtils {
 
             /* Weather ID as returned by API, used to identify the icon to be used */
             int weatherId = todayWeatherCursor.getInt(INDEX_WEATHER_ID);
-            double high = todayWeatherCursor.getDouble(INDEX_MAX_TEMP);
-            double low = todayWeatherCursor.getDouble(INDEX_MIN_TEMP);
+            Double high = todayWeatherCursor.getDouble(INDEX_MAX_TEMP);
+            Double low = todayWeatherCursor.getDouble(INDEX_MIN_TEMP);
+
 
             Resources resources = context.getResources();
             int largeArtResourceId = SunshineWeatherUtils

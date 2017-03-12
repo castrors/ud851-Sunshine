@@ -19,6 +19,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -35,6 +37,10 @@ import android.widget.ProgressBar;
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.data.WeatherContract;
 import com.example.android.sunshine.sync.SunshineSyncUtils;
+import com.example.android.sunshine.wear.WearableUtils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.Wearable;
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>,
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
     private int mPosition = RecyclerView.NO_POSITION;
 
     private ProgressBar mLoadingIndicator;
+    private GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -154,6 +161,43 @@ public class MainActivity extends AppCompatActivity implements
 
         SunshineSyncUtils.initialize(this);
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                        Log.e(TAG, "onConnected");
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+                        Log.e(TAG, "onConnectionSuspended");
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Log.e(TAG, "onConnectionFailed");
+                    }
+                })
+                .build();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+//            Wearable.DataApi.removeListener(mGoogleApiClient, this);
+//            Wearable.MessageApi.removeListener(mGoogleApiClient, this);
+//            Wearable.CapabilityApi.removeListener(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
     }
 
     /**
@@ -223,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * Called when a Loader has finished loading its data.
-     *
+     * <p>
      * NOTE: There is one small bug in this code. If no data is present in the cursor do to an
      * initial load being performed with no access to internet, the loading indicator will show
      * indefinitely, until data is present from the ContentProvider. This will be fixed in a
@@ -303,10 +347,8 @@ public class MainActivity extends AppCompatActivity implements
      * This is where we inflate and set up the menu for this Activity.
      *
      * @param menu The options menu in which you place your items.
-     *
      * @return You must return true for the menu to be displayed;
-     *         if you return false it will not be shown.
-     *
+     * if you return false it will not be shown.
      * @see #onPrepareOptionsMenu
      * @see #onOptionsItemSelected
      */
@@ -324,7 +366,6 @@ public class MainActivity extends AppCompatActivity implements
      * Callback invoked when a menu item was selected from this Activity's menu.
      *
      * @param item The menu item that was selected by the user
-     *
      * @return true if you handle the menu click here, false otherwise
      */
     @Override
@@ -338,6 +379,11 @@ public class MainActivity extends AppCompatActivity implements
         }
         if (id == R.id.action_map) {
             openPreferredLocationInMap();
+            return true;
+        }
+
+        if (id == R.id.action_notify_wear) {
+            WearableUtils.notify(this, mGoogleApiClient);
             return true;
         }
 

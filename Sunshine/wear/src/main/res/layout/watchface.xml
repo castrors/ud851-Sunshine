@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/text_hour_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/month"
+        android:layout_marginTop="4dp"
+        android:textColor="#fff"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        tools:text="18:32" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="#fff"
+        tools:text="FRI, JUL 14 2015" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="2dp"
+        android:layout_margin="8dp"
+        android:background="@color/grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/image_weather"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cc_clear"/>
+
+        <TextView
+            android:id="@+id/text_weather_max"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            tools:text="25º"/>
+
+        <TextView
+            android:id="@+id/text_weather_min"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            tools:text="25º"/>
+    </LinearLayout>
+
+</LinearLayout>
