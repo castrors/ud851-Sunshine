@@ -16,7 +16,7 @@
         android:layout_below="@+id/month"
         android:layout_marginTop="4dp"
         android:textColor="#fff"
-        android:textSize="24dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         tools:text="18:32" />
 
@@ -32,7 +32,7 @@
         android:layout_width="20dp"
         android:layout_height="2dp"
         android:layout_margin="8dp"
-        android:background="@color/grey" />
+        android:background="#fff" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,15 +45,14 @@
             android:id="@+id/image_weather"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cc_clear"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/text_weather_max"
             android:layout_width="0dp"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:textColor="#fff"
             android:textStyle="bold"
             android:layout_height="wrap_content"
@@ -64,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:textColor="#fff"
             android:layout_height="wrap_content"
             tools:text="25º"/>

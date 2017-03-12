@@ -37,7 +37,7 @@ import android.widget.ProgressBar;
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.data.WeatherContract;
 import com.example.android.sunshine.sync.SunshineSyncUtils;
-import com.example.android.sunshine.wear.WearableUtils;
+import com.example.android.sunshine.utilities.WearableUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.Wearable;
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
                         Log.e(TAG, "onConnected");
+                        WearableUtils.notify(MainActivity.this, mGoogleApiClient);
                     }
 
                     @Override
@@ -187,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+
     }
 
     @Override

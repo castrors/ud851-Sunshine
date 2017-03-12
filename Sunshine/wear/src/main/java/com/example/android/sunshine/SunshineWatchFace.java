@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.util.Log;
@@ -198,7 +199,12 @@ public class SunshineWatchFace extends CanvasWatchFaceService {
             textHourMinute = (TextView) myLayout.findViewById(R.id.text_hour_minute);
             textDate = (TextView) myLayout.findViewById(R.id.text_date);
             textWeatherMax = (TextView) myLayout.findViewById(R.id.text_weather_max);
+            textWeatherMax.setText("0º");
             textWeatherMin = (TextView) myLayout.findViewById(R.id.text_weather_min);
+            textWeatherMin.setText("0º");
+
+            imageWeather.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.art_clear));
+
         }
 
         @Override
@@ -346,15 +352,19 @@ public class SunshineWatchFace extends CanvasWatchFaceService {
             String dateFormatted = format.format(mCalendar.getTime());
             textDate.setText(dateFormatted);
 
-            textWeatherMax.setText(weatherMaxTemp);
-            textWeatherMin.setText(weatherMinTemp);
+            if (weatherMaxTemp != null && !weatherMaxTemp.isEmpty()) {
+                textWeatherMax.setText(weatherMaxTemp);
+            }
+            if (weatherMaxTemp != null && !weatherMinTemp.isEmpty()) {
+                textWeatherMin.setText(weatherMinTemp);
+            }
 
             // Update the layout
             myLayout.measure(specW, specH);
             myLayout.layout(0, 0, myLayout.getMeasuredWidth(), myLayout.getMeasuredHeight());
 
             // Draw it to the Canvas
-            canvas.drawColor(Color.BLACK);
+            canvas.drawColor(mBackgroundPaint.getColor());
             canvas.translate(mXOffset, mYOffset);
             myLayout.draw(canvas);
         }

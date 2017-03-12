@@ -1,4 +1,4 @@
-package com.example.android.sunshine.wear;
+package com.example.android.sunshine.utilities;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.android.sunshine.data.WeatherContract;
-import com.example.android.sunshine.utilities.SunshineDateUtils;
-import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.Asset;
